@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.BookMyServant.shared.dto.UserDto;
 import com.BookMyServant.shared.dto.*;
 import com.BookMyServant.ui.model.response.*;
 import com.BookMyServant.ui.model.request.*;
+import com.BookMyServant.entity.TokenEntity;
 import com.BookMyServant.entity.UserEntity;
 import com.BookMyServant.service.*;
 
@@ -31,10 +31,30 @@ public class UserController {
 	@Autowired
 	WorkerService workerservice;
 	
-	@GetMapping()
-	public String getUser() {
+	@Autowired
+	JobService jobservice;
+	
+	@Autowired LocationService locationservice;
+	
+	
+	@GetMapping("/login")
+	public TokenResponse loginUser(@RequestBody UserLoginRequestModel userlogin) {
+		
+		
+		LoginDto logindto = new LoginDto();
+		BeanUtils.copyProperties(userlogin, logindto);
+		
+	       TokenDto storedtoken = userservice.verification(logindto);
+	       
+	       TokenResponse tokenresponse = new TokenResponse();
+	       
+	       BeanUtils.copyProperties(storedtoken,tokenresponse);
+	       if(tokenresponse == null) 
+	    	   throw new NullPointerException("user is not registered");
+	    		
+	    	   
 
-		return "get user was called";
+		return tokenresponse  ;
 
 	}
 
@@ -100,10 +120,97 @@ public class UserController {
 	}
 		
 	
-	@DeleteMapping
-	public String deleteUser() {
+	@DeleteMapping("/logout")
+	public boolean deleteUser(@RequestBody TokenRequestModel tokendetails) {
 
-		return "delete user was called";
+		TokenEntity tokenentity = new TokenEntity();
+		BeanUtils.copyProperties(tokendetails, tokenentity);
+		
+		boolean tokenresponse = userservice.logout(tokenentity);
+		
+		
+		return tokenresponse;
+	}
+		
+		@PostMapping("/review")
+		public ReviewResponse review(@RequestBody ReviewRequestModel reviewdetails) {
+			ReviewDto reviewdto = new ReviewDto();
+			
+			BeanUtils.copyProperties(reviewdetails, reviewdto);
+		
+			ReviewResponse reviewresponse= new ReviewResponse();
+			
+			reviewdto = userservice.saveReview(reviewdto);
+			BeanUtils.copyProperties(reviewdto, reviewresponse);
+			
+			return reviewresponse;
+		}
+
+		@PostMapping("/rating")
+		public RatingResponse rating(@RequestBody RatingRequest ratingrequest) {
+			
+			RatingDto ratingdto = new RatingDto();
+			BeanUtils.copyProperties(ratingrequest, ratingdto);
+			
+			RatingResponse ratingresponse = new RatingResponse();
+			
+			ratingdto =userservice.saveRating(ratingdto);
+			BeanUtils.copyProperties(ratingdto, ratingresponse);
+			
+			
+			return ratingresponse;
+		}
+		
+		@PostMapping("/job")
+			public JobResponse job(@RequestBody JobRequest jobrequest) {
+			
+			JobDto jobdto = new JobDto();
+			BeanUtils.copyProperties(jobrequest, jobdto);
+			
+			jobdto = jobservice.saveJob(jobdto);
+			
+			JobResponse jr = new JobResponse();
+			
+			BeanUtils.copyProperties(jobdto, jr);
+			
+			return jr;
+		}
+		
+		@PutMapping("/map")
+		public LocationResponse map(@RequestBody LocationRequest locationrequest) {
+			LocationDto locationdto = new LocationDto();
+			
+			BeanUtils.copyProperties(locationrequest, locationdto);
+			
+			locationdto = locationservice.createlocation(locationdto);
+			
+			LocationResponse lr = new LocationResponse();
+			
+			BeanUtils.copyProperties(locationdto, lr);
+			
+			return lr;
+		
+		}
+		
+		
+		@PostMapping("/calculation")
+		public Fare calculation(@RequestBody CalculationRequest calcirequest) {
+			
+			return null;
+		}
+		
+		
+		
+		
+       @GetMapping("/aws")
+       public String awsdeploy() {
+    	   
+    	   return "successfully done";
+       }
+       
+       
+       
+
 
 }
-}
+

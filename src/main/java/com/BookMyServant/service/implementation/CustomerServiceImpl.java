@@ -1,5 +1,7 @@
 package com.BookMyServant.service.implementation;
 
+import java.security.SecureRandom;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
@@ -57,11 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
 		
 	          return null;
 		
+		}
 		
 		
 		
-
-	}
 		}
 
 

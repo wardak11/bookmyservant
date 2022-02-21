@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 import com.BookMyServant.entity.*;
 
 @Repository
-public interface UserRepository extends CrudRepository<UserEntity, Long> {
+public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 	
-	UserEntity findUserByEmail(String email);
+	//UserEntity findUserByEmail(String email);
 
 	
 	

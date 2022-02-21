@@ -1,6 +1,6 @@
-package com.BookMyServant.ui.model.request;
+package com.BookMyServant.shared.dto;
 
-public class UserLoginRequestModel {
+public class LoginDto {
 
 	private String email;
 	private String password;
@@ -18,4 +18,5 @@ public class UserLoginRequestModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 }

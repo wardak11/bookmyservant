@@ -14,33 +14,29 @@ public class UserEntity {
 	@Column
 	private String userType;
 	
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
-	@Column(nullable = false)
+	@Column
 	private String userid;
 	
-	@Column(nullable = false, length = 50)
+	@Column(length = 50)
 	private String name;
 	
-	@Column(nullable = false, length = 150,unique= true)
+	@Column(length = 150,unique= true)
 	private String email;
 	
-	@Column(nullable = false)
-	private String encryptedpassword;
-
-	private String emailverificationtoken;
-	
-	@Column(nullable = false, columnDefinition = "boolean default false")
-	private Boolean emailverificationstatus;
-	
-	@Column(nullable= false)
+	@Column
 	private long phoneNumber;
+	
+	@Column
+	private String token;
+	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public long getPhoneNumber() {
 		return phoneNumber;
@@ -82,29 +78,15 @@ public class UserEntity {
 		this.email = email;
 	}
 
-	public String getEncryptedpassword() {
-		return encryptedpassword;
+	public String getUserType() {
+		return userType;
 	}
 
-	public void setEncryptedpassword(String encryptedpassword) {
-		this.encryptedpassword = encryptedpassword;
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
-	public String getEmailverificationtoken() {
-		return emailverificationtoken;
-	}
 
-	public void setEmailverificationtoken(String emailverificationtoken) {
-		this.emailverificationtoken = emailverificationtoken;
-	}
-
-	public Boolean getEmailverificationstatus() {
-		return emailverificationstatus;
-	}
-
-	public void setEmailverificationstatus(Boolean emailverificationstatus) {
-		this.emailverificationstatus = emailverificationstatus;
-	}
 
 
 
