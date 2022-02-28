@@ -7,7 +7,7 @@ public class WorkerEntity {
 
 	@Id
 	@GeneratedValue
-	private int Id;
+	private Integer Id;
 	
     @Column  
 	boolean isPoliceCertified;

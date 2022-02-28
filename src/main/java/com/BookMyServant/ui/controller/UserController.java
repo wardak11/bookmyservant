@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.BookMyServant.shared.dto.*;
 import com.BookMyServant.ui.model.response.*;
+
+import java.util.List;
+
 import com.BookMyServant.ui.model.request.*;
 import com.BookMyServant.entity.TokenEntity;
 import com.BookMyServant.entity.UserEntity;
+import com.BookMyServant.entity.WorkerEntity;
 import com.BookMyServant.service.*;
 
 
@@ -202,10 +206,13 @@ public class UserController {
 		
 		
 		
-       @GetMapping("/aws")
-       public String awsdeploy() {
+       @GetMapping("/workers")
+       public List<WorkerEntity> getWorkers() {
     	   
-    	   return "successfully done";
+  
+    	   // workerservice.getWorker();
+    	   return workerservice.getWorker(); 
+    	  
        }
        
        
